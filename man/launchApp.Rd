@@ -13,10 +13,8 @@ An interactive GUI with several plots and useful information.
 Launch the shiny application (GUI)
 }
 \examples{
-## Not run:
 \dontrun{
 ShinyATLROI::launchApp()
 }
-## End(**Not run**)
 }
 

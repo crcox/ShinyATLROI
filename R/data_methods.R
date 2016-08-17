@@ -15,11 +15,9 @@ NULL
 #' @param R Shiny reactive conductor to store the plane.
 #' @return Atlas with roi_boundary_{x,y,z} columns defining the plane.
 #' @examples
-#' ## Not run:
 #' \dontrun{
 #'   coronal_plane(atlas, input, R)
 #' }
-#' ## End(**Not run**)
 #'
 #' @export
 coronal_plane <- function(atlas, input, R) {

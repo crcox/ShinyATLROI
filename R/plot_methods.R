@@ -17,13 +17,11 @@ NULL
 #' @param input Shiny input object containing information from control widgets.
 #' @return A 4-panel figure to render and display
 #' @examples
-#' ## Not run:
 #' \dontrun{
 #'   output$sagitalPlot <- shiny::renderPlot({
 #'     sagitalPlot(sagital_projection, reactiveA(),input)
 #'   })
 #' }
-#' ## End(**Not run**)
 #'
 #' @export
 sagitalPlot <- function(d, coronal_slice, input) {
@@ -74,13 +72,11 @@ sagitalPlot <- function(d, coronal_slice, input) {
 #' @param input Shiny input object containing information from control widgets.
 #' @return A 1-panel figure to render and display
 #' @examples
-#' ## Not run:
 #' \dontrun{
 #'   output$sagitalPlot <- shiny::renderPlot({
 #'     sagitalPlot(reactiveA(), input)
 #'   })
 #' }
-#' ## End(**Not run**)
 #'
 #' @export
 coronalPlot <- function(d, input) {

@@ -101,11 +101,9 @@ plane_point <- function(plane,x,y,z) {
 #'
 #' @return An interactive GUI with several plots and useful information.
 #' @examples
-#' ## Not run:
 #' \dontrun{
 #' ShinyATLROI::launchApp()
 #' }
-#' ## End(**Not run**)
 #' @export
 launchApp <- function() {
   shiny::runApp(system.file('app', package='ShinyATLROI'))

@@ -27,11 +27,9 @@ Y axis: Anterior-Posterior
 Z axis: Inferior-Superior
 }
 \examples{
-## Not run:
 \dontrun{
   coronal_plane(atlas, input, R)
 }
-## End(**Not run**)
 
 }
 

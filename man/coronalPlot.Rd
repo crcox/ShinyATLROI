@@ -21,13 +21,11 @@ control wigits. Hovering over data points will update a panel containing the
 aparc.2009a+aseg code at that position.
 }
 \examples{
-## Not run:
 \dontrun{
   output$sagitalPlot <- shiny::renderPlot({
     sagitalPlot(reactiveA(), input)
   })
 }
-## End(**Not run**)
 
 }
 
