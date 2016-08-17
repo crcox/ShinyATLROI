@@ -1,6 +1,5 @@
 library('shiny')
 library('dplyr')
-library('Cairo')
 library('ShinyATLROI')
 
 data("temporal_lobes_atlas")
