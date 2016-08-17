@@ -43,7 +43,8 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("sagitalPlot", hover=hoverOpts(id = "sagital_plot_hover")),
-      plotOutput("coronalPlot", hover=hoverOpts(id = "coronal_plot_hover"))
+      plotOutput("coronalPlot", hover=hoverOpts(id = "coronal_plot_hover")),
+      actionButton("save_roi","Export ROI to csv...")
     )
   )
 ))

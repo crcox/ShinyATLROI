@@ -1,5 +1,6 @@
 library('shiny')
 library('dplyr')
+library('svGUI')
 library('ShinyATLROI')
 
 data("temporal_lobes_atlas")
@@ -24,11 +25,13 @@ shinyServer(function(input, output) {
   })
   output$sag_hover_info <- shiny::renderPrint({
       cat("Sagital Region under cursor:\n")
-      print(unique(sagital_projection[
+      print(
+        unique(sagital_projection[
         round(as.numeric(input$sagital_plot_hover$x)) == sagital_projection$y &
           round(as.numeric(input$sagital_plot_hover$y)) == sagital_projection$z &
           input$sagital_plot_hover$panelvar1 == sagital_projection$hemisphere
-        ,'value_full']))
+        ,'value_full'])
+      )
   })
   output$cor_hover_info <- shiny::renderPrint({
     if (abs(input$slope) > 0) {
@@ -42,10 +45,12 @@ shinyServer(function(input, output) {
       dp <- filter(R$coronal_slice,y==ceiling(input$intercept))
     }
     cat("Coronal Region under cursor:\n")
-    print(unique(dp[
+    print(
+      unique(dp[
       round(as.numeric(input$coronal_plot_hover$x)) == dp$x &
         round(as.numeric(input$coronal_plot_hover$y)) == dp$z
-      ,'value_full']))
+      ,'value_full'])
+    )
   })
   output$roi_intersection_by_region_rh <- shiny::renderPrint({
     cat("Intersection with ROI by region (Right Hemisphere):\n")
@@ -70,5 +75,11 @@ shinyServer(function(input, output) {
         pct_in_roi=count_in_roi/size
       ) %>% ungroup()
     print(roi_info)
+  })
+  observeEvent(input$save_roi, {
+    roi <- dplyr::filter(R$coronal_slice, y<=roi_boundary_y)
+    roi <- dplyr::select(roi, x,y,z,as.numeric(value))
+    filepath <- svDialogs::dlgSave(default="~/", title="Save ATL ROI as...", filters=svDialogs::dlgFilters["All",])$res
+    write.csv(x=roi,file = filepath,quote = FALSE,row.names = F)
   })
 })

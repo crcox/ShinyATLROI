@@ -6,7 +6,7 @@ Description: What the package does (one paragraph).
 Depends:
     R (>= 3.1.2)
 Imports:
-    shiny,dplyr,ggplot2,magrittr,RColorBrewer
+    shiny,dplyr,ggplot2,magrittr,RColorBrewer,svDialogs
 Suggests:
     Cairo,stringr
 License: MIT
