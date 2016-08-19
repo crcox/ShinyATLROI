@@ -1,15 +1,33 @@
 #!/usr/bin/env lr
 .libPaths('/home/chris/lib/R/library/')
 suppressMessages(library('ShinyATLROI'))
-atlas_file = as.character(argv[1])
-key_file = as.character(argv[2])
+suppressMessages(library(docopt))
+
+## configuration for docopt
+doc <- "Usage: planeselect [options] [--] <atlas> <key> <slope> <rotation> <intercept>
+
+Options:
+  -i, --invert  select points posterior to plane, rather than anterior.
+  -h, --help    show this help text.
+"
+
+## docopt parsing
+print(commandArgs())
+opt <- docopt(doc)
+
+atlas_file = as.character(opt$atlas)
+key_file = as.character(opt$key)
 PLANE <- list(
-  slope = as.numeric(argv[3]),
-  rotation = as.numeric(argv[4]),
-  intercept = as.numeric(argv[5])
+  slope = as.numeric(opt$slope),
+  rotation = as.numeric(opt$slope),
+  intercept = as.numeric(opt$intercept)
 )
 
 ATLAS <- ShinyATLROI::read_atlas(atlas_file, key_file, txt_has_ijk = TRUE)
 atlas_wplane <- ShinyATLROI::coronal_plane(ATLAS$atlas, PLANE)
-roi <- select_roi(atlas_wplane)
+if (opt$invert) {
+  roi <- ShinyATLROI::select_roi(atlas_wplane, anterior=FALSE)
+} else {
+  roi <- ShinyATLROI::select_roi(atlas_wplane, anterior=TRUE)
+}
 write.csv(x=roi,file = stdout(), quote = FALSE, row.names = F)
