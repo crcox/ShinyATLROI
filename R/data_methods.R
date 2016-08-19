@@ -117,7 +117,7 @@ sagital_project <- function(atlas, key) {
 #' Z axis: Inferior-Superior
 #'
 #' @param atlas_wplane A dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}
-#' @param anterior Flag indicating whether to select region anterior or posterior to the plane. Default: anterior}
+#' @param anterior Flag indicating whether to select region anterior or posterior to the plane. Default: anterior
 #' @return A subset of atlas_wplane, including voxels that fall on or anterior to plane.
 #' @examples
 #' \dontrun{
