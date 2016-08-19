@@ -117,6 +117,7 @@ sagital_project <- function(atlas, key) {
 #' Z axis: Inferior-Superior
 #'
 #' @param atlas_wplane A dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}
+#' @param anterior Flag indicating whether to select region anterior or posterior to the plane. Default: anterior}
 #' @return A subset of atlas_wplane, including voxels that fall on or anterior to plane.
 #' @examples
 #' \dontrun{
@@ -124,8 +125,12 @@ sagital_project <- function(atlas, key) {
 #' }
 #'
 #' @export
-select_roi <- function(atlas_wplane){
-  roi <- dplyr::filter(atlas_wplane, y<=roi_boundary_y)
+select_roi <- function(atlas_wplane, anterior=TRUE){
+  if (anterior) {
+    roi <- dplyr::filter(atlas_wplane, y<=roi_boundary_y)
+  } else {
+    roi <- dplyr::filter(atlas_wplane, y>=roi_boundary_y)
+  }
   roi$index <- as.numeric(roi$value)
   roi <- dplyr::select(roi, x,y,z,index,value)
   return(roi)
