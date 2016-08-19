@@ -4,7 +4,7 @@
 \alias{coronal_plane}
 \title{Add a reference plane to a 3D atlas}
 \usage{
-coronal_plane(atlas, input, R)
+coronal_plane(atlas, input, R = NULL)
 }
 \arguments{
 \item{atlas}{A dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.}

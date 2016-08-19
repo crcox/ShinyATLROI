@@ -77,9 +77,11 @@ shinyServer(function(input, output) {
     print(roi_info)
   })
   observeEvent(input$save_roi, {
-    roi <- dplyr::filter(R$coronal_slice, y<=roi_boundary_y)
-    roi <- dplyr::select(roi, x,y,z,as.numeric(value))
-    filepath <- svDialogs::dlgSave(default="~/", title="Save ATL ROI as...", filters=svDialogs::dlgFilters["All",])$res
+    #roi <- dplyr::filter(R$coronal_slice, y<=roi_boundary_y)
+    #roi$index <- as.numeric(roi$value)
+    #roi <- dplyr::select(roi, x,y,z,index,value)
+    roi <- ShinyATLROI::select_roi(reactiveA())
+    filepath <- svDialogs::dlgSave(default="/media/chris/Data1/MRI/Manchester/ROI/*", title="Save ATL ROI as...", filters=svDialogs::dlgFilters["All",])$res
     write.csv(x=roi,file = filepath,quote = FALSE,row.names = F)
   })
 })

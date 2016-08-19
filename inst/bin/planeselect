@@ -1,0 +1,15 @@
+#!/usr/bin/env lr
+.libPaths('/home/chris/lib/R/library/')
+suppressMessages(library('ShinyATLROI'))
+atlas_file = as.character(argv[1])
+key_file = as.character(argv[2])
+PLANE <- list(
+  slope = as.numeric(argv[3]),
+  rotation = as.numeric(argv[4]),
+  intercept = as.numeric(argv[5])
+)
+
+ATLAS <- ShinyATLROI::read_atlas(atlas_file, key_file, txt_has_ijk = TRUE)
+atlas_wplane <- ShinyATLROI::coronal_plane(ATLAS$atlas, PLANE)
+roi <- select_roi(atlas_wplane)
+write.csv(x=roi,file = stdout(), quote = FALSE, row.names = F)

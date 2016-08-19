@@ -4,13 +4,13 @@
 \alias{sagitalPlot}
 \title{Plot sagital projections with interactive ROI reference lines}
 \usage{
-sagitalPlot(d, coronal_slice, input)
+sagitalPlot(d, atlas_wplane, input)
 }
 \arguments{
 \item{d}{A dataframe with yz coordinates, hemisphere codes, surface codes,
 and a value for each voxel projected onto the surfaces.}
 
-\item{coronal_slice}{A dataframe that contains information about the
+\item{atlas_wplane}{A dataframe that contains information about the
 posterior extent of the ATL in 3 dimensions.}
 
 \item{input}{Shiny input object containing information from control widgets.}

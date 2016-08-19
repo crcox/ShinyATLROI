@@ -12,7 +12,7 @@ NULL
 #'
 #' @param d A dataframe with yz coordinates, hemisphere codes, surface codes,
 #'   and a value for each voxel projected onto the surfaces.
-#' @param coronal_slice A dataframe that contains information about the
+#' @param atlas_wplane A dataframe that contains information about the
 #'   posterior extent of the ATL in 3 dimensions.
 #' @param input Shiny input object containing information from control widgets.
 #' @return A 4-panel figure to render and display
@@ -24,7 +24,7 @@ NULL
 #' }
 #'
 #' @export
-sagitalPlot <- function(d, coronal_slice, input) {
+sagitalPlot <- function(d, atlas_wplane, input) {
   cols <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(12, "Set3"))
   myPal <- cols(length(levels(d$value)))
   plane <- get_plane(input$slope,input$rotation,input$intercept)
@@ -32,12 +32,12 @@ sagitalPlot <- function(d, coronal_slice, input) {
   if (abs(input$slope) > 0) {
     m <- 1/input$slope
     if (abs(m) > 1) {
-      dp <- dplyr::filter(coronal_slice,y==roi_boundary_y)
+      dp <- dplyr::filter(atlas_wplane,y==roi_boundary_y)
     } else {
-      dp <- dplyr::filter(coronal_slice,z==roi_boundary_z)
+      dp <- dplyr::filter(atlas_wplane,z==roi_boundary_z)
     }
   } else {
-    dp <- dplyr::filter(coronal_slice,y==ceiling(input$intercept))
+    dp <- dplyr::filter(atlas_wplane,y==ceiling(input$intercept))
   }
   if (abs(input$slope) > 0) {
     m <- 1/input$slope
