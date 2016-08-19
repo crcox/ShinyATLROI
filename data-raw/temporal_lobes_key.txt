@@ -8,6 +8,7 @@
 80 ctx_lh_G_temporal_inf
 81 ctx_lh_G_temporal_middle
 86 ctx_lh_Pole_temporal
+93 ctx_lh_S_collat_transv_ant
 103 ctx_lh_S_oc-temp_lat
 104 ctx_lh_S_oc-temp_med_and_Lingual
 115 ctx_lh_S_temporal_inf
@@ -23,6 +24,7 @@
 155 ctx_rh_G_temporal_inf
 156 ctx_rh_G_temporal_middle
 161 ctx_rh_Pole_temporal
+168 ctx_rh_S_collat_transv_ant
 178 ctx_rh_S_oc-temp_lat
 179 ctx_rh_S_oc-temp_med_and_Lingual
 190 ctx_rh_S_temporal_inf
