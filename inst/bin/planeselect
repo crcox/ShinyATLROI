@@ -12,7 +12,6 @@ Options:
 "
 
 ## docopt parsing
-print(commandArgs())
 opt <- docopt(doc)
 
 atlas_file = as.character(opt$atlas)
