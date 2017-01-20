@@ -10,7 +10,7 @@ NULL
 #' Y axis: Anterior-Posterior
 #' Z axis: Inferior-Superior
 #'
-#' @param atlas A dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.
+#' @param atlas Dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.
 #' @param input Shiny reactive input object.
 #' @param R Shiny reactive conductor to store the plane.
 #' @return Atlas with roi_boundary_{x,y,z} columns defining the plane.
@@ -66,8 +66,8 @@ coronal_plane <- function(atlas, input, R=NULL) {
 
 #' Project 3D sagital "shell" onto 2D sagital plane
 #'
-#' @param atlas A dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.
-#' @return dataframe with x-axis of each hemisphere collapsed to two surfaces.
+#' @param atlas Dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.
+#' @return Dataframe with x-axis of each hemisphere collapsed to two surfaces.
 #' @examples
 #' \dontrun{
 #'   sagital_project(atlas)
@@ -116,8 +116,11 @@ sagital_project <- function(atlas, key) {
 #' Y axis: Anterior-Posterior
 #' Z axis: Inferior-Superior
 #'
-#' @param atlas_wplane A dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}
+#' @param atlas_wplane Dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}
 #' @param anterior Flag indicating whether to select region anterior or posterior to the plane. Default: anterior
+#' @param raw_index Flag to instruct function to return the original
+#'   aparc.a2009s+aseg indexes, rather than the internal indexes that group
+#'   together analogous regions in each hemisphere. Default: FALSE
 #' @return A subset of atlas_wplane, including voxels that fall on or anterior to plane.
 #' @examples
 #' \dontrun{
@@ -125,15 +128,41 @@ sagital_project <- function(atlas, key) {
 #' }
 #'
 #' @export
-select_roi <- function(atlas_wplane, anterior=TRUE){
+select_roi <- function(atlas_wplane, anterior=TRUE, raw_index=FALSE){
   if (anterior) {
     roi <- dplyr::filter(atlas_wplane, y<=roi_boundary_y)
   } else {
     roi <- dplyr::filter(atlas_wplane, y>=roi_boundary_y)
   }
-  roi$index <- as.numeric(roi$value)
+  if (raw_index) {
+    roi$index <- as.numeric(roi$value_full)
+  } else {
+    roi$index <- as.numeric(roi$value)
+  }
   roi <- dplyr::select(roi, x,y,z,index,value)
   return(roi)
+}
+
+#' Return portion of atlas that falls on the plane
+#'
+#' The plane will be defined by fields \code{roi_boundary_{x,y,z}}.
+#'
+#' @param atlas_wplane Dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}
+#' @param raw_index Flag to instruct function to return the original
+#'   aparc.a2009s+aseg indexes, rather than the internal indexes that group
+#'   together analogous regions in each hemisphere. Default: FALSE
+#' @return A subset of atlas_wplane, including voxels that fall on the plane.
+#'
+#' @export
+select_plane <- function(atlas_wplane, raw_index=FALSE){
+  plane <- dplyr::filter(atlas_wplane, y==roi_boundary_y)
+  if (raw_index) {
+    plane$index <- as.numeric(plane$value_full)
+  } else {
+    plane$index <- as.numeric(plane$value)
+  }
+  plane <- dplyr::select(plane, x,y,z,index,value)
+  return(plane)
 }
 
 #' Read atlas and key text files and compose useful dataframes
@@ -156,9 +185,9 @@ select_roi <- function(atlas_wplane, anterior=TRUE){
 #'   column is an index, and the second column is a label. If a key file is not
 #'   provided, the atlas cannot be labeled, and atlas regions across hemispheres
 #'   cannot be grouped.
-#' @param txt_has_index A flag to indicate whether the first column of the
+#' @param txt_has_index Flag to indicate whether the first column of the
 #'   \code{atlas_file} is a 1D voxel index. Default: FALSE
-#' @param txt_has_ijk A flag to indicate whether the first three columns of the
+#' @param txt_has_ijk Flag to indicate whether the first three columns of the
 #'   \code{atlas_file} is are the 3D voxel indexes \code{i,j,k}. Default: TRUE
 #' @return A list containing the parsed and formatted atlas and key.
 #' @examples

@@ -1,0 +1,27 @@
+#!/usr/bin/env lr
+.libPaths('/home/chris/lib/R/library/')
+suppressMessages(library('ShinyATLROI'))
+suppressMessages(library(docopt))
+
+## configuration for docopt
+doc <- "Usage: planeproject [options] [--] <atlas> <key> <slope> <rotation> <intercept>
+
+Options:
+  -h, --help    show this help text.
+"
+
+## docopt parsing
+opt <- docopt(doc)
+
+atlas_file = as.character(opt$atlas)
+key_file = as.character(opt$key)
+PLANE <- list(
+  slope = as.numeric(opt$slope),
+  rotation = as.numeric(opt$slope),
+  intercept = as.numeric(opt$intercept)
+)
+
+ATLAS <- ShinyATLROI::read_atlas(atlas_file, key_file, txt_has_ijk = TRUE)
+atlas_wplane <- ShinyATLROI::coronal_plane(ATLAS$atlas, PLANE)
+plane <- ShinyATLROI::select_plane(atlas_wplane)
+write.csv(x=plane,file = stdout(), quote = FALSE, row.names = F)

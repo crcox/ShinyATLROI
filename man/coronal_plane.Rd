@@ -7,7 +7,7 @@
 coronal_plane(atlas, input, R = NULL)
 }
 \arguments{
-\item{atlas}{A dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.}
+\item{atlas}{Dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.}
 
 \item{input}{Shiny reactive input object.}
 

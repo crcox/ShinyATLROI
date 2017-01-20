@@ -18,10 +18,10 @@ column is an index, and the second column is a label. If a key file is not
 provided, the atlas cannot be labeled, and atlas regions across hemispheres
 cannot be grouped.}
 
-\item{txt_has_index}{A flag to indicate whether the first column of the
+\item{txt_has_index}{Flag to indicate whether the first column of the
 \code{atlas_file} is a 1D voxel index. Default: FALSE}
 
-\item{txt_has_ijk}{A flag to indicate whether the first three columns of the
+\item{txt_has_ijk}{Flag to indicate whether the first three columns of the
 \code{atlas_file} is are the 3D voxel indexes \code{i,j,k}. Default: TRUE}
 }
 \value{

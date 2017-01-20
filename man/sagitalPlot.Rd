@@ -7,10 +7,10 @@
 sagitalPlot(d, atlas_wplane, input)
 }
 \arguments{
-\item{d}{A dataframe with yz coordinates, hemisphere codes, surface codes,
+\item{d}{Dataframe with yz coordinates, hemisphere codes, surface codes,
 and a value for each voxel projected onto the surfaces.}
 
-\item{atlas_wplane}{A dataframe that contains information about the
+\item{atlas_wplane}{Dataframe that contains information about the
 posterior extent of the ATL in 3 dimensions.}
 
 \item{input}{Shiny input object containing information from control widgets.}

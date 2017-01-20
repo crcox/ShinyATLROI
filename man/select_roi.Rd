@@ -4,12 +4,16 @@
 \alias{select_roi}
 \title{Return portion of atlas that falls on or anterior to plane}
 \usage{
-select_roi(atlas_wplane, anterior = TRUE)
+select_roi(atlas_wplane, anterior = TRUE, raw_index = FALSE)
 }
 \arguments{
-\item{atlas_wplane}{A dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}}
+\item{atlas_wplane}{Dataframe with xyz coordinates, and \code{roi_boundary_{x,y,z}}}
 
 \item{anterior}{Flag indicating whether to select region anterior or posterior to the plane. Default: anterior}
+
+\item{raw_index}{Flag to instruct function to return the original
+aparc.a2009s+aseg indexes, rather than the internal indexes that group
+together analogous regions in each hemisphere. Default: FALSE}
 }
 \value{
 A subset of atlas_wplane, including voxels that fall on or anterior to plane.

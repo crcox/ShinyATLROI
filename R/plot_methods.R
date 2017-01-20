@@ -10,9 +10,9 @@ NULL
 #' interest. Hovering over data points will update a panel containing the
 #' aparc.2009a+aseg code at that position.
 #'
-#' @param d A dataframe with yz coordinates, hemisphere codes, surface codes,
+#' @param d Dataframe with yz coordinates, hemisphere codes, surface codes,
 #'   and a value for each voxel projected onto the surfaces.
-#' @param atlas_wplane A dataframe that contains information about the
+#' @param atlas_wplane Dataframe that contains information about the
 #'   posterior extent of the ATL in 3 dimensions.
 #' @param input Shiny input object containing information from control widgets.
 #' @return A 4-panel figure to render and display
@@ -67,7 +67,7 @@ sagitalPlot <- function(d, atlas_wplane, input) {
 #' control wigits. Hovering over data points will update a panel containing the
 #' aparc.2009a+aseg code at that position.
 #'
-#' @param d A dataframe that contains information about the
+#' @param atlas_wplane Dataframe that contains information about the
 #'   posterior extent of the ATL in 3 dimensions.
 #' @param input Shiny input object containing information from control widgets.
 #' @return A 1-panel figure to render and display
@@ -79,18 +79,18 @@ sagitalPlot <- function(d, atlas_wplane, input) {
 #' }
 #'
 #' @export
-coronalPlot <- function(d, input) {
+coronalPlot <- function(atlas_wplane, input) {
   cols <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(12, "Set3"))
-  myPal <- cols(length(levels(d$value)))
+  myPal <- cols(length(levels(atlas_wplane$value)))
   if (abs(input$slope) > 0 || abs(input$rotation)>0) {
     m <- 1/input$slope
     if (abs(m) > 1) {
-      dp <- dplyr::filter(d,y==roi_boundary_y)
+      dp <- dplyr::filter(atlas_wplane,y==roi_boundary_y)
     } else {
       dp <- dplyr::filter(d,z==roi_boundary_z)
     }
   } else {
-    dp <- dplyr::filter(d,y==ceiling(input$intercept))
+    dp <- dplyr::filter(atlas_wplane, y==ceiling(input$intercept))
   }
   ggplot2::ggplot(dp, aes(x=x,y=z,color=value)) +
     ggplot2::geom_point() +

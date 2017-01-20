@@ -4,10 +4,10 @@
 \alias{coronalPlot}
 \title{Plot a responsive coronal slice}
 \usage{
-coronalPlot(d, input)
+coronalPlot(atlas_wplane, input)
 }
 \arguments{
-\item{d}{A dataframe that contains information about the
+\item{atlas_wplane}{Dataframe that contains information about the
 posterior extent of the ATL in 3 dimensions.}
 
 \item{input}{Shiny input object containing information from control widgets.}

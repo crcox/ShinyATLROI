@@ -8,6 +8,8 @@ doc <- "Usage: planeselect [options] [--] <atlas> <key> <slope> <rotation> <inte
 
 Options:
   -i, --invert  select points posterior to plane, rather than anterior.
+  --raw_index   return raw aparc.a2009s+aseg indexes, rather than indexes that
+                group analogous regions across hemispheres.
   -h, --help    show this help text.
 "
 
@@ -24,9 +26,9 @@ PLANE <- list(
 
 ATLAS <- ShinyATLROI::read_atlas(atlas_file, key_file, txt_has_ijk = TRUE)
 atlas_wplane <- ShinyATLROI::coronal_plane(ATLAS$atlas, PLANE)
-if (opt$invert) {
-  roi <- ShinyATLROI::select_roi(atlas_wplane, anterior=FALSE)
-} else {
-  roi <- ShinyATLROI::select_roi(atlas_wplane, anterior=TRUE)
-}
+roi <- ShinyATLROI::select_roi(
+                               atlas_wplane,
+                               anterior=!opt$invert, #invert means posterior
+                               raw_index=opt$raw_index
+                               )
 write.csv(x=roi,file = stdout(), quote = FALSE, row.names = F)

@@ -7,10 +7,10 @@
 sagital_project(atlas, key)
 }
 \arguments{
-\item{atlas}{A dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.}
+\item{atlas}{Dataframe with xyz coordinates, hemisphere codes, and a value for each voxel.}
 }
 \value{
-dataframe with x-axis of each hemisphere collapsed to two surfaces.
+Dataframe with x-axis of each hemisphere collapsed to two surfaces.
 }
 \description{
 Project 3D sagital "shell" onto 2D sagital plane
